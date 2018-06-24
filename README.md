@@ -1,4 +1,4 @@
 # Javascript_Games
-    ok so i updated thus shiot//
 
-t contains code for 3 games that i created : snake,breakout and catch the muffin.
+It contains code for 3 games that i created : snake,breakout and catch the muffin.
+I learnt all these using a udemy Course. Thanks
