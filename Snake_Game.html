@@ -55,7 +55,7 @@
         return ((snk.x <= fd.x + food.width) &&
                 (fd.x <= snk.x + snakeBody.width) &&
                 (snk.y <= fd.y + food.height) &&
-                (fd.y <= snk.y + snakeBody.height));
+                (fd.y <= snk.y + snakeBody.height));               // to check if food lies/overlaps with the snake's head
       }
 
       testCollisionSnake = function(snake1,snake2) {
