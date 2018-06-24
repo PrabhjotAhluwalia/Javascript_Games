@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Snake</title>
+    <title>Snake Game</title>
   </head>
   <body>
     <canvas height="500" width="500" style="border:2px solid #43c1bf" id="ctx"/>
@@ -9,9 +9,21 @@
       var ctx = document.getElementById('ctx').getContext('2d');
       var WIDTH = 500;
       var HEIGHT = 500;
+      
+      
       var snakeList,foodList,direction,eaten,intervalVar,score,running=false;
+      
+      /* snakeList : it is a list of all the snake bodies
+      foodList : Contains coordinates of food , in our example only the 0th index will be used
+      direction : Tells which direction we are moving
+      IntervalVar : Used to check when to stop the game ( the snake bites itself ) 
+      score: gives score
+      running : to ensure that the game propely restarts midway when we accidently press mouse button
+      */
+      
+      
       ctx.font = "20px Calibri";
-      ctx.fillText("Click me to start the game",140,250);
+      ctx.fillText("Click me to start the game",140,250);    /*Displays text at middle of canvas */
 
       var snakeBody = {
         width:20,
@@ -25,9 +37,9 @@
         color:'orange'
       };
 
-      document.getElementById('ctx').onmousedown = function() {
+      document.getElementById('ctx').onmousedown = function() {    //step 1
         if (running) {
-          clearInterval(intervalVar);
+          clearInterval(intervalVar);  /* if game is already running then we close the current game iteration and start new one*/ 
         }
         startGame();
       }
@@ -80,7 +92,7 @@
         ctx.restore();
       }
 
-      updateSnakeList = function() {
+      updateSnakeList = function() { 
         for(var i=snakeList.length-1;i>=0;i--) {
           if (direction == 0) {
             if (i==0) {
@@ -121,7 +133,7 @@
         }
       }
 
-      checkSnakePosition = function() {
+      checkSnakePosition = function() {   /*when snake touches the boundary*/
         if (snakeList[0].x > 500) {
           snakeList[0].x = 0;
         }
@@ -140,7 +152,7 @@
         for (i in snakeList) {
           if (i==0)
             continue;
-          if (testCollisionSnake(snakeList[0],snakeList[i])) {
+          if (testCollisionSnake(snakeList[0],snakeList[i])) {    /*if snake eats itself*/
             clearInterval(intervalVar);
             ctx.fillText('Game Over! Click to restart',150,250);
             return;
@@ -152,8 +164,8 @@
         ctx.clearRect(0,0,WIDTH,HEIGHT);
         while(eaten) {
           var pos_x = Math.random()*485+5;
-          var pos_y = Math.random()*485+5;
-          foodList[0] = {x:pos_x,y:pos_y};
+          var pos_y = Math.random()*485+5;    
+          foodList[0] = {x:pos_x,y:pos_y};   /* if the food gets eaten generate a new food*/
           eaten =false;
         }
         foodList.forEach(drawFood);
@@ -164,7 +176,7 @@
           eaten = true;
           score += 1;
           var new_X,new_y;
-          if (direction == 0) {
+          if (direction == 0) { /*Insert the new snake body at the head and not at the tail */
             new_X = snakeList[0].x - 20;
             new_y = snakeList[0].y;
           }
@@ -188,16 +200,16 @@
         updateSnakeList();
       }
 
-      startGame = function() {
-        snakeList = [{x:220,y:200},
+      startGame = function() {   /*step 2 */
+        snakeList = [{x:220,y:200},    /*Initialise snake body of 3 elements */
                      {x:200,y:200},
                      {x:180,y:200}];
-        foodList = [];
-        direction = 99;
-        eaten = true;
+        foodList = [];    /*empty*/
+        direction = 99;    
+        eaten = true;      /* so that the first food item can appear*/
         score = 0;
         running = true;
-        intervalVar = setInterval(updateSnakePosition,20);
+        intervalVar = setInterval(updateSnakePosition,20);     /*refresh the canvas 20 times per second*/
       }
 
     </script>
