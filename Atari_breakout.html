@@ -41,15 +41,15 @@
 
       running = false;
       document.getElementById('ctx').onmousedown = function() {
-        if (running) {
+        if (running) { /*Used for starting the game when we press the mouse*/
           clearInterval(intervalVar);
         }
         startGame();
       }
 
-      document.onkeydown = function(event) {
+      document.onkeydown = function(event) {      /*When we press direction keys our base should move*/
         if (event.keyCode == 37) {
-          base.pressingLeft = true;
+          base.pressingLeft = true;     
           base.pressingRight = false;
         }
         else if (event.keyCode == 39) {
@@ -58,7 +58,7 @@
         }
       }
 
-      document.onkeyup = function(event) {
+      document.onkeyup = function(event) { /*when we release the keys the base should stop moving*/
         if (event.keyCode == 37) {
           base.pressingLeft = false;
         }
@@ -67,14 +67,14 @@
         }
       }
 
-      testCollision = function(base,ball) {
+      testCollision = function(base,ball) { /*check collision bw ball and base*/
         return ((base.x < ball.x + ball.radius) &&
                 (ball.x < base.x + base.width) &&
                 (base.y < ball.y + ball.radius) &&
                 (ball.y < base.y + base.height));
       }
 
-      testCollisionEnemy = function(e,ball) {
+      testCollisionEnemy = function(e,ball) { /*check collision with each of the enemy tiles and the ball*/
         return ((e.x < ball.x + ball.radius) &&
                 (ball.x < e.x + enemy.width) &&
                 (e.y < ball.y + ball.radius) &&
@@ -111,10 +111,10 @@
         else if (base.pressingRight) {
           base.x = base.x + 5;
         }
-        if (base.x < 0) {
+        if (base.x < 0) { /*boundary condition*/
           base.x = 0;
         }
-        if (base.x > WIDTH-base.width) {
+        if (base.x > WIDTH-base.width) { /*boundary condition*/
           base.x = WIDTH-base.width;
         }
       }
@@ -169,14 +169,14 @@
         drawBall();
         drawBase();
 
-        if (testCollision(base,ball)) {
+        if (testCollision(base,ball)) { /*ball bounces after hitting base*/
           ball.spdY = -ball.spdY;
         }
 
         for (key in enemyList) {
           if (testCollisionEnemy(enemyList[key],ball)) {
             delete enemyList[key];
-            ball.spdY = -ball.spdY;
+            ball.spdY = -ball.spdY; /*ball bounces after hitting enemy tile*/
             score += 5;
           }
         }
@@ -202,7 +202,7 @@
         hitCount = 0;
         ball.spdX = -3;
         ball.spdY = -3;
-        for (var i=1;i<=6;i++) {
+        for (var i=1;i<=6;i++) { /*define the co-ordinates of the enemy tiles*/
           enemyX = 5;
           for(var j=1;j<=11;j++) {
             enemyList[numOfEnemies] = {x:enemyX,y:enemyY};
