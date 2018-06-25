@@ -120,13 +120,13 @@
       }
 
       updateBallPosition = function() {
-        ball.x += ball.spdX;
+        ball.x += ball.spdX; /*we increase difficulty whenever ball hits the sides, we use hitcount var for this */
         ball.y += ball.spdY;
         if (ball.x > WIDTH || ball.x < 0) {
           hitCount++;
           if (hitCount % 20 == 0) {
             if (ball.spdX < 0)
-              ball.spdX = -(Math.abs(ball.spdX)+1);
+              ball.spdX = -(Math.abs(ball.spdX)+1); /*ball hits lhs*/
             else
               ball.spdX += 1;
           }
